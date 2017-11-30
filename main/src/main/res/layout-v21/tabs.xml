@@ -3,7 +3,6 @@
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
   -->
 <merge xmlns:blinkt="http://schemas.android.com/apk/res-auto">
-
     <de.blinkt.openvpn.views.PagerSlidingTabStrip xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"

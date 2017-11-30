@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivity {
     private VpnProfile mResult;
     private String mEmbeddedPwFile;
     private String mAliasName = null;
-    public static TextView notice;
+
     private Uri mSourceUri;
     public static final String VPNPROFILE = "vpnProfile";
     public static String ACCOUNT, PASSWORD;
@@ -75,27 +76,26 @@ public class MainActivity extends BaseActivity {
 
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         //  mResult = (VpnProfile) savedInstanceState.getSerializable(VPNPROFILE);
         setContentView(R.layout.main_activity);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
-        notice = findViewById(R.id.notice);
-
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             disableToolbarElevation();
         }
         mPagerAdapter.addTab(R.string.vpn_list_title, VPNProfileList.class);
-        mPagerAdapter.addTab(R.string.graph, GraphFragment.class);
+//        mPagerAdapter.addTab(R.string.graph, GraphFragment.class);
         // mPagerAdapter.addTab(R.string.generalsettings, GeneralSettings.class);
         // mPagerAdapter.addTab(R.string.faq, FaqFragment.class);
-        if (SendDumpFragment.getLastestDump(this) != null) {
-            mPagerAdapter.addTab(R.string.crashdump, SendDumpFragment.class);
-        }
-        if (isDirectToTV())
-            mPagerAdapter.addTab(R.string.openvpn_log, LogFragment.class);
+//        if (SendDumpFragment.getLastestDump(this) != null) {
+//            mPagerAdapter.addTab(R.string.crashdump, SendDumpFragment.class);
+//        }
+//        if (isDirectToTV())
+//            mPagerAdapter.addTab(R.string.openvpn_log, LogFragment.class);
         mPagerAdapter.addTab(R.string.about, AboutFragment.class);
         mPager.setAdapter(mPagerAdapter);
 
@@ -120,9 +120,9 @@ public class MainActivity extends BaseActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void disableToolbarElevation() {
-        ActionBar toolbar = getActionBar();
-        toolbar.setDisplayShowHomeEnabled(false);
-        toolbar.setElevation(0);
+//        ActionBar toolbar = getActionBar();
+//        toolbar.setDisplayShowHomeEnabled(false);
+//        toolbar.setElevation(0);
 
 
     }

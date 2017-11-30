@@ -6,25 +6,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33a3dc"
+    android:background="@drawable/bg_main"
     android:orientation="vertical">
 
         <include layout="@layout/tabs" />
-        <TextView
-            android:id="@+id/notice"
-            android:background="#228fbd"
-            android:textColor="#f2eada"
-            android:layout_margin="10dp"
-            android:text="无法获取公告"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <android.support.v4n.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <TextView
-            android:text="1232131"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+
+
 </LinearLayout>
 

@@ -8,73 +8,31 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/stdpadding"
-        android:paddingRight="@dimen/stdpadding">
-
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/notice"
+            android:background="@drawable/notice_main"
+            android:textColor="#121212"
+            android:layout_margin="12dp"
+            android:minHeight="40dp"
+            android:text="无法获取公告"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <ListView
             android:id="@android:id/list"
             android:layout_margin="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:descendantFocusability="afterDescendants" />
-
-        <LinearLayout
-            android:id="@android:id/empty"
+        <Button
+            android:id="@+id/login_out"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_vpn_profiles_defined"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12sp" />
-
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="@string/openvpn_is_no_free_vpn" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12sp" />
-
-
-            <TextView
-                android:id="@+id/add_new_vpn_hint"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="SelectableText" />
-
-            <TextView
-                android:id="@+id/import_vpn_hint"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="SelectableText" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12sp" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/faq_hint" />
-        </LinearLayout>
+            android:layout_height="50dp"
+            android:text="退出登录"/>
 
     </LinearLayout>
-
-     <!-- <include layout="@layout/profile_list_fabs" /> -->
 
 </FrameLayout>

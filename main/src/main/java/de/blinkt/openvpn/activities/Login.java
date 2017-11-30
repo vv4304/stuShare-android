@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import de.blinkt.openvpn.R;
+import de.blinkt.openvpn.fragments.VPNProfileList;
 
 /**
  * Created by admin on 2017/11/27.
@@ -54,6 +56,7 @@ public class Login extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login);
         id = findViewById(R.id.id);
         password = findViewById(R.id.password);
@@ -106,7 +109,7 @@ public class Login extends BaseActivity {
 
                 String notice = new httpcontent().GET("http://sv.icodef.com/index/api/notice_pc", false);
                 try {
-                    MainActivity.notice.setText(new JSONObject(notice).getString("msg"));
+                    VPNProfileList.noticeText=new JSONObject(notice).getString("msg");
                 } catch (JSONException e) {
                 }
 

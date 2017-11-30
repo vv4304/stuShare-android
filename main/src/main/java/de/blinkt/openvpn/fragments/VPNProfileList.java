@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -54,6 +55,8 @@ import de.blinkt.openvpn.VpnProfile;
 import de.blinkt.openvpn.activities.ConfigConverter;
 import de.blinkt.openvpn.activities.DisconnectVPN;
 import de.blinkt.openvpn.activities.FileSelect;
+import de.blinkt.openvpn.activities.Login;
+import de.blinkt.openvpn.activities.MainActivity;
 import de.blinkt.openvpn.activities.VPNPreferences;
 import de.blinkt.openvpn.core.ConnectionStatus;
 import de.blinkt.openvpn.core.Preferences;
@@ -75,8 +78,9 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private static final int MENU_IMPORT_PROFILE = Menu.FIRST + 1;
     private static final int MENU_CHANGE_SORTING = Menu.FIRST + 2;
     private static final String PREF_SORT_BY_LRU = "sortProfilesByLRU";
+    public static String noticeText;
     private String mLastStatusMessage;
-
+    public static TextView notice;
     @Override
     public void updateState(String state, String logmessage, final int localizedResId, ConnectionStatus level) {
         getActivity().runOnUiThread(new Runnable() {
@@ -157,6 +161,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
 
@@ -318,11 +323,11 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.vpn_profile_list, container, false);
 
-        TextView newvpntext = (TextView) v.findViewById(R.id.add_new_vpn_hint);
-        TextView importvpntext = (TextView) v.findViewById(R.id.import_vpn_hint);
+//        TextView newvpntext = (TextView) v.findViewById(R.id.add_new_vpn_hint);
+//        TextView importvpntext = (TextView) v.findViewById(R.id.import_vpn_hint);
 
-        newvpntext.setText(Html.fromHtml(getString(R.string.add_new_vpn_hint), new MiniImageGetter(), null));
-        importvpntext.setText(Html.fromHtml(getString(R.string.vpn_import_hint), new MiniImageGetter(), null));
+//        newvpntext.setText(Html.fromHtml(getString(R.string.add_new_vpn_hint), new MiniImageGetter(), null));
+//        importvpntext.setText(Html.fromHtml(getString(R.string.vpn_import_hint), new MiniImageGetter(), null));
         ImageButton fab_add = (ImageButton) v.findViewById(R.id.fab_add);
         ImageButton fab_import = (ImageButton) v.findViewById(R.id.fab_import);
         if (fab_add != null)
@@ -393,7 +398,15 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private void setListAdapter() {
         if (mArrayadapter == null) {
             mArrayadapter = new VPNArrayAdapter(getActivity(), R.layout.vpn_list_item, R.id.vpn_item_title);
-
+            notice =getActivity().findViewById(R.id.notice);
+            notice.setText(noticeText);
+            ((Button)getActivity().findViewById(R.id.login_out)).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    startActivityForResult(intent, 1);
+                }
+            });
         }
         populateVpnList();
     }
