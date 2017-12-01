@@ -13,16 +13,16 @@
     <LinearLayout
         android:background="@drawable/white_rect"
         android:elevation="1dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-        <include layout="@layout/log_silders"/>
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
 
         <TextView
             android:text="@string/speed_waiting"
             android:singleLine="true"
             android:id="@+id/speed"
+            android:textSize="16dp"
             tools:ignore="InconsistentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

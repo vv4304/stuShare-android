@@ -8,6 +8,7 @@ package de.blinkt.openvpn.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import de.blinkt.openvpn.R;
 import de.blinkt.openvpn.fragments.LogFragment;
@@ -19,8 +20,9 @@ public class LogWindow extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.log_window);
-       getActionBar().setDisplayHomeAsUpEnabled(true);
+//       getActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()

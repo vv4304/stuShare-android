@@ -484,7 +484,7 @@ public class LogFragment extends ListFragment implements StateListener, SeekBar.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.logmenu, menu);
+//        inflater.inflate(R.menu.logmenu, menu);
         if (getResources().getBoolean(R.bool.logSildersAlwaysVisible))
             menu.removeItem(R.id.toggle_time);
     }
@@ -583,34 +583,34 @@ public class LogFragment extends ListFragment implements StateListener, SeekBar.
 
         setListAdapter(ladapter);
 
-        mTimeRadioGroup = (RadioGroup) v.findViewById(R.id.timeFormatRadioGroup);
-        mTimeRadioGroup.setOnCheckedChangeListener(this);
-
-        if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_ISO) {
-            mTimeRadioGroup.check(R.id.radioISO);
-        } else if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_NONE) {
-            mTimeRadioGroup.check(R.id.radioNone);
-        } else if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_SHORT) {
-            mTimeRadioGroup.check(R.id.radioShort);
-        }
-
-        mClearLogCheckBox = (CheckBox) v.findViewById(R.id.clearlogconnect);
-        mClearLogCheckBox.setChecked(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(LaunchVPN.CLEARLOG, true));
-        mClearLogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Preferences.getDefaultSharedPreferences(getActivity()).edit().putBoolean(LaunchVPN.CLEARLOG, isChecked).apply();
-            }
-        });
+//        mTimeRadioGroup = (RadioGroup) v.findViewById(R.id.timeFormatRadioGroup);
+//        mTimeRadioGroup.setOnCheckedChangeListener(this);
+//
+//        if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_ISO) {
+//            mTimeRadioGroup.check(R.id.radioISO);
+//        } else if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_NONE) {
+//            mTimeRadioGroup.check(R.id.radioNone);
+//        } else if (ladapter.mTimeFormat == LogWindowListAdapter.TIME_FORMAT_SHORT) {
+//            mTimeRadioGroup.check(R.id.radioShort);
+//        }
+//
+//        mClearLogCheckBox = (CheckBox) v.findViewById(R.id.clearlogconnect);
+//        mClearLogCheckBox.setChecked(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(LaunchVPN.CLEARLOG, true));
+//        mClearLogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Preferences.getDefaultSharedPreferences(getActivity()).edit().putBoolean(LaunchVPN.CLEARLOG, isChecked).apply();
+//            }
+//        });
 
         mSpeedView = (TextView) v.findViewById(R.id.speed);
 
         mOptionsLayout = (LinearLayout) v.findViewById(R.id.logOptionsLayout);
-        mLogLevelSlider = (SeekBar) v.findViewById(R.id.LogLevelSlider);
-        mLogLevelSlider.setMax(VpnProfile.MAXLOGLEVEL - 1);
-        mLogLevelSlider.setProgress(logLevel - 1);
-
-        mLogLevelSlider.setOnSeekBarChangeListener(this);
+//        mLogLevelSlider = (SeekBar) v.findViewById(R.id.LogLevelSlider);
+//        mLogLevelSlider.setMax(VpnProfile.MAXLOGLEVEL - 1);
+//        mLogLevelSlider.setProgress(logLevel - 1);
+//
+//        mLogLevelSlider.setOnSeekBarChangeListener(this);
 
         if (getResources().getBoolean(R.bool.logSildersAlwaysVisible))
             mOptionsLayout.setVisibility(View.VISIBLE);
