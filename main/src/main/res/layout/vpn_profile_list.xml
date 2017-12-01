@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/notice"
             android:background="@drawable/notice_main"
-            android:textColor="#121212"
+            android:textColor="#e7e7e7"
             android:layout_margin="12dp"
             android:minHeight="40dp"
             android:text="无法获取公告"
