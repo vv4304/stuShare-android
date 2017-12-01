@@ -133,7 +133,7 @@ public class MainActivity extends BaseActivity {
         if (getIntent() != null) {
             String page = getIntent().getStringExtra("PAGE");
             if ("graph".equals(page)) {
-                mPager.setCurrentItem(1);
+                mPager.setCurrentItem(0);
             }
             setIntent(null);
         }

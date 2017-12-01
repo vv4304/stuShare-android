@@ -11,27 +11,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/notice"
-            android:background="@drawable/notice_main"
-            android:textColor="#e7e7e7"
-            android:layout_margin="12dp"
-            android:minHeight="40dp"
-            android:text="无法获取公告"
-            android:padding="4dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/notice_main"
+            android:minHeight="40dp"
+            android:padding="4dp"
+            android:text="无法获取公告"
+            android:textColor="#e7e7e7" />
+
         <ListView
             android:id="@android:id/list"
-            android:layout_margin="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:descendantFocusability="afterDescendants" />
+
         <Button
             android:id="@+id/login_out"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="退出登录"/>
+            android:text="退出登录" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="vertical"
+            android:background="@drawable/notice_main"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="#e4e4e4"
+                android:layout_height="wrap_content"
+                android:text="流量信息:" />
+
+            <TextView
+                android:id="@+id/flow_msg"
+                android:textColor="#e4e4e4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总流量: 下载:0kb 上传:0kb" />
+            <TextView
+                android:id="@+id/speed_msg"
+                android:textColor="#e4e4e4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="实时速率: 下载:0kb/s 上传:0kb/s" />
+        </LinearLayout>
 
     </LinearLayout>
 
