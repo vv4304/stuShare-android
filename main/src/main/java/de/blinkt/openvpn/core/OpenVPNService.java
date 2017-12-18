@@ -120,9 +120,9 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     // From: http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
     public static String humanReadableByteCount(long bytes, boolean speed, Resources res) {
-        if (speed)
-            bytes = bytes * 8;
-        int unit = speed ? 1000 : 1024;
+//        if (speed)
+//            bytes = bytes * 8;
+        int unit = 1024;
 
 
         int exp = Math.max(0, Math.min((int) (Math.log(bytes) / Math.log(unit)), 3));
@@ -291,21 +291,21 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private int getIconByConnectionStatus(ConnectionStatus level) {
         switch (level) {
             case LEVEL_CONNECTED:
-                return R.drawable.ic_stat_vpn;
+                return R.drawable.ic_logo;
             case LEVEL_AUTH_FAILED:
             case LEVEL_NONETWORK:
             case LEVEL_NOTCONNECTED:
-                return R.drawable.ic_stat_vpn_offline;
+                return R.drawable.ic_logo;
             case LEVEL_CONNECTING_NO_SERVER_REPLY_YET:
             case LEVEL_WAITING_FOR_USER_INPUT:
-                return R.drawable.ic_stat_vpn_outline;
+                return R.drawable.ic_logo;
             case LEVEL_CONNECTING_SERVER_REPLIED:
-                return R.drawable.ic_stat_vpn_empty_halo;
+                return R.drawable.ic_logo;
             case LEVEL_VPNPAUSED:
                 return android.R.drawable.ic_media_pause;
             case UNKNOWN_LEVEL:
             default:
-                return R.drawable.ic_stat_vpn;
+                return R.drawable.ic_logo;
 
         }
     }

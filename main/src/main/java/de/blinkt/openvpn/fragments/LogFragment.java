@@ -118,21 +118,21 @@ public class LogFragment extends ListFragment implements StateListener, SeekBar.
     @Override
     public void updateByteCount(long in, long out, long diffIn, long diffOut) {
         //%2$s/s %1$s - ↑%4$s/s %3$s
-        Resources res = getActivity().getResources();
-        final String down = String.format("%2$s %1$s", humanReadableByteCount(in, false, res), humanReadableByteCount(diffIn / OpenVPNManagement.mBytecountInterval, true, res));
-        final String up = String.format("%2$s %1$s", humanReadableByteCount(out, false, res), humanReadableByteCount(diffOut / OpenVPNManagement.mBytecountInterval, true, res));
-
-        if (mUpStatus != null && mDownStatus != null) {
-            if (getActivity() != null) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mUpStatus.setText(up);
-                        mDownStatus.setText(down);
-                    }
-                });
-            }
-        }
+//        Resources res = getActivity().getResources();
+//        final String down = String.format("%2$s %1$s", humanReadableByteCount(in, false, res), humanReadableByteCount(diffIn / OpenVPNManagement.mBytecountInterval, true, res));
+//        final String up = String.format("%2$s %1$s", humanReadableByteCount(out, false, res), humanReadableByteCount(diffOut / OpenVPNManagement.mBytecountInterval, true, res));
+//
+//        if (mUpStatus != null && mDownStatus != null) {
+//            if (getActivity() != null) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mUpStatus.setText(up);
+//                        mDownStatus.setText(down);
+//                    }
+//                });
+//            }
+//        }
 
     }
 
