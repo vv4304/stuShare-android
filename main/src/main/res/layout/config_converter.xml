@@ -10,10 +10,30 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:gravity="center"
         android:text="数据加载中....."
         android:textColor="#e75071"
         android:textSize="30dp" />
 
+=======
+        android:text="天容万物 海纳百川"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="家国共担 手脑并用"
+        android:textSize="30dp"
+        android:id="@+id/textView" />
+
+
+>>>>>>> Stashed changes
 </RelativeLayout>
