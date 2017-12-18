@@ -33,6 +33,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -317,7 +318,6 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
         try {
             filedata = readBytesFromFile(possibleFile);
         } catch (IOException e) {
-            log(e.getLocalizedMessage());
             return null;
         }
 
@@ -385,6 +385,7 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.config_converter);
         new get().execute();
     }
@@ -402,7 +403,9 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
                 rows = jsonObject.getJSONArray("rows");
                 for (int i = 0; i < rows.length(); i++) {
                     JSONObject item = rows.getJSONObject(i);
-                    saveprofile(item.getString("name"), item.getString("config"), item.getString("count"));
+                    if(!saveprofile(item.getString("name"), item.getString("config"), item.getString("count"))){
+                        continue;
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -434,9 +437,12 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
 
 
         try {
-            doImport(new FileInputStream(file));
+            if(!doImport(new FileInputStream(file))){
+                return false;
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
         mResult.mName = name + "丨在线：" + count;
         // saveProfile();
@@ -447,7 +453,7 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
         vpl.addProfile(mResult);
         vpl.saveProfile(this, mResult);
         vpl.saveProfileList(this);
-        return null;
+        return true;
     }
 
     private void saveProfile() {
@@ -481,17 +487,17 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
                 TextView tv = new TextView(ConfigConverter.this);
                 mLogEntries.add(logmessage);
                 tv.setText(logmessage);
-
                 addViewToLog(tv);
             }
         });
     }
 
     private void addViewToLog(View view) {
+
         mLogLayout.addView(view, mLogLayout.getChildCount() - 1);
     }
 
-    private void doImport(InputStream is) {
+    private boolean doImport(InputStream is) {
         ConfigParser cp = new ConfigParser();
         try {
             InputStreamReader isr = new InputStreamReader(is);
@@ -499,14 +505,12 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
             cp.parseConfig(isr);
             mResult = cp.convertProfile();
             embedFiles(cp);
-            return;
 
         } catch (IOException | ConfigParseError e) {
-
-            log(e.getLocalizedMessage());
+            mResult = null;
+            return false;
         }
-        mResult = null;
-
+        return true;
     }
 
 

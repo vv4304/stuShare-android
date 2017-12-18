@@ -5,12 +5,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_ecy_ns1">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="大吉大利，群主吃鸡*"
+        android:text="数据加载中....."
+        android:textColor="#e75071"
         android:textSize="30dp" />
+
 </RelativeLayout>

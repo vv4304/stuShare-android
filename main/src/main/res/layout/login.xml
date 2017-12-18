@@ -6,10 +6,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2eada"
-    android:orientation="vertical">
-
-
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    >
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"></FrameLayout>
+    
     <EditText
         android:id="@+id/id"
         android:layout_width="match_parent"
@@ -19,6 +23,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/exittext"
         android:ems="10"
+        android:paddingLeft="6dp"
         android:hint="帐号"
         android:inputType="textPersonName" />
 
@@ -32,6 +37,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/exittext"
         android:ems="10"
+        android:paddingLeft="6dp"
         android:hint="密码"
         android:inputType="textPassword" />
 
@@ -58,6 +64,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
         android:text="本程序仅供于湖南信息职业技术学院校内使用如有问题请移步于信院南站Q群：175853183"
         />
 </LinearLayout>

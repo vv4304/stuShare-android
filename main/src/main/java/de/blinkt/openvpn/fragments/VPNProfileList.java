@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
@@ -34,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -54,16 +56,20 @@ import de.blinkt.openvpn.VpnProfile;
 import de.blinkt.openvpn.activities.ConfigConverter;
 import de.blinkt.openvpn.activities.DisconnectVPN;
 import de.blinkt.openvpn.activities.FileSelect;
+import de.blinkt.openvpn.activities.Login;
+import de.blinkt.openvpn.activities.MainActivity;
 import de.blinkt.openvpn.activities.VPNPreferences;
 import de.blinkt.openvpn.core.ConnectionStatus;
+import de.blinkt.openvpn.core.OpenVPNManagement;
 import de.blinkt.openvpn.core.Preferences;
 import de.blinkt.openvpn.core.ProfileManager;
 import de.blinkt.openvpn.core.VpnStatus;
 
 import static de.blinkt.openvpn.core.OpenVPNService.DISCONNECT_VPN;
+import static de.blinkt.openvpn.core.OpenVPNService.humanReadableByteCount;
 
 
-public class VPNProfileList extends ListFragment implements OnClickListener, VpnStatus.StateListener {
+public class VPNProfileList extends ListFragment implements OnClickListener, VpnStatus.StateListener, VpnStatus.ByteCountListener {
 
     public final static int RESULT_VPN_DELETED = Activity.RESULT_FIRST_USER;
     public final static int RESULT_VPN_DUPLICATE = Activity.RESULT_FIRST_USER + 1;
@@ -75,7 +81,11 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private static final int MENU_IMPORT_PROFILE = Menu.FIRST + 1;
     private static final int MENU_CHANGE_SORTING = Menu.FIRST + 2;
     private static final String PREF_SORT_BY_LRU = "sortProfilesByLRU";
+    public static String noticeText;
     private String mLastStatusMessage;
+    public static TextView notice;
+    public static TextView flowMsg;
+    public static TextView speedMsg;
 
     @Override
     public void updateState(String state, String logmessage, final int localizedResId, ConnectionStatus level) {
@@ -90,6 +100,36 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
 
     @Override
     public void setConnectedVPN(String uuid) {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        VpnStatus.addByteCountListener(this);
+    }
+
+    @Override
+    public void updateByteCount(long in, long out, long diffIn, long diffOut) {
+        //%2$s/s %1$s - ↑%4$s/s %3$s
+        Resources res = getActivity().getResources();
+        final String nowDown = String.format("%1$s", humanReadableByteCount(diffIn / OpenVPNManagement.mBytecountInterval, true, res));
+        final String nowUp = String.format("%1$s", humanReadableByteCount(diffOut / OpenVPNManagement.mBytecountInterval, true, res));
+
+        final String allDown = String.format("%1$s", humanReadableByteCount(in, false, getResources()));
+        final String allUp = String.format("%1$s", humanReadableByteCount(out, false, getResources()));
+
+        if (flowMsg != null) {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //↓%2$s %1$s - ↑%4$s %3$s
+                        flowMsg.setText(String.format("总流量: 下载:%1$s 上传:%2$s", allDown, allUp));
+                        speedMsg.setText(String.format("实时速率: 下载:%1$s 上传:%2$s", nowDown, nowUp));
+                    }
+                });
+            }
+        }
     }
 
     private class VPNArrayAdapter extends ArrayAdapter<VpnProfile> {
@@ -143,7 +183,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
             Intent disconnectVPN = new Intent(getActivity(), DisconnectVPN.class);
             startActivity(disconnectVPN);
         } else {
-           startVPN(profile);
+            startVPN(profile);
         }
     }
 
@@ -157,6 +197,7 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
 
@@ -318,11 +359,11 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.vpn_profile_list, container, false);
 
-        TextView newvpntext = (TextView) v.findViewById(R.id.add_new_vpn_hint);
-        TextView importvpntext = (TextView) v.findViewById(R.id.import_vpn_hint);
+//        TextView newvpntext = (TextView) v.findViewById(R.id.add_new_vpn_hint);
+//        TextView importvpntext = (TextView) v.findViewById(R.id.import_vpn_hint);
 
-        newvpntext.setText(Html.fromHtml(getString(R.string.add_new_vpn_hint), new MiniImageGetter(), null));
-        importvpntext.setText(Html.fromHtml(getString(R.string.vpn_import_hint), new MiniImageGetter(), null));
+//        newvpntext.setText(Html.fromHtml(getString(R.string.add_new_vpn_hint), new MiniImageGetter(), null));
+//        importvpntext.setText(Html.fromHtml(getString(R.string.vpn_import_hint), new MiniImageGetter(), null));
         ImageButton fab_add = (ImageButton) v.findViewById(R.id.fab_add);
         ImageButton fab_import = (ImageButton) v.findViewById(R.id.fab_import);
         if (fab_add != null)
@@ -393,7 +434,17 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private void setListAdapter() {
         if (mArrayadapter == null) {
             mArrayadapter = new VPNArrayAdapter(getActivity(), R.layout.vpn_list_item, R.id.vpn_item_title);
-
+            notice = getActivity().findViewById(R.id.notice);
+            flowMsg = getActivity().findViewById(R.id.flow_msg);
+            speedMsg = getActivity().findViewById(R.id.speed_msg);
+            notice.setText(noticeText);
+            ((Button) getActivity().findViewById(R.id.login_out)).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    startActivityForResult(intent, 1);
+                }
+            });
         }
         populateVpnList();
     }
