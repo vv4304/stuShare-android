@@ -85,7 +85,8 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     private String mLastStatusMessage;
     public static TextView notice;
     public static TextView flowMsg;
-    public static TextView speedMsg;
+    public static TextView outtime;
+    // public static TextView speedMsg;
 
     @Override
     public void updateState(String state, String logmessage, final int localizedResId, ConnectionStatus level) {
@@ -124,8 +125,8 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
                     @Override
                     public void run() {
                         //↓%2$s %1$s - ↑%4$s %3$s
-                        flowMsg.setText(String.format("总流量: 下载:%1$s 上传:%2$s", allDown, allUp));
-                        speedMsg.setText(String.format("实时速率: 下载:%1$s 上传:%2$s", nowDown, nowUp));
+                        flowMsg.setText(String.format("总流量: 已下载:%1$s 已上传:%2$s", allDown, allUp));
+                        // speedMsg.setText(String.format("实时速率: 下载:%1$s 上传:%2$s", nowDown, nowUp));
                     }
                 });
             }
@@ -436,8 +437,10 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
             mArrayadapter = new VPNArrayAdapter(getActivity(), R.layout.vpn_list_item, R.id.vpn_item_title);
             notice = getActivity().findViewById(R.id.notice);
             flowMsg = getActivity().findViewById(R.id.flow_msg);
-            speedMsg = getActivity().findViewById(R.id.speed_msg);
+            outtime = getActivity().findViewById(R.id.outtime);
+            // speedMsg = getActivity().findViewById(R.id.speed_msg);
             notice.setText(noticeText);
+            outtime.setText("到期时间：" +MainActivity.ACCOUNT+"|"+ MainActivity.outtime_date);
             ((Button) getActivity().findViewById(R.id.login_out)).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -624,7 +627,11 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("?", "588");
+
+        if (requestCode == 1) {
+            outtime.setText("到期时间：" +MainActivity.ACCOUNT+"|"+ MainActivity.outtime_date);
+        }
+
 
         // test=data.getData();
 
@@ -640,10 +647,8 @@ public class VPNProfileList extends ListFragment implements OnClickListener, Vpn
             VpnProfile profile = ProfileManager.get(getActivity(), profileUUID);
             if (profile != null)
                 onAddOrDuplicateProfile(profile);
-
         }
 */
-
         if (resultCode != Activity.RESULT_OK)
             return;
 

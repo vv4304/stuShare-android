@@ -4,4 +4,3 @@
  */
 
 include ':main'
-include ':remoteExample'

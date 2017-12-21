@@ -6,8 +6,7 @@
 <resources>
 
     <string name="copyright_blinktgui" translatable="false">
-       本程序用专注于共享校园网，让大家享受更便宜的宽带,
-        魅族手机用户如果出现断网情况请于手机管家-权限管理--后台管理-选中本应用设置为允许后台运行,
+        魅族或其他手机如果出现断网情况请于手机管家-权限管理--后台管理-选中本应用设置为允许后台运行,
         如果有其他问题请移部于Q群175853183
     </string>
     <string name="defaultserver" translatable="false">openvpn.uni-paderborn.de</string>

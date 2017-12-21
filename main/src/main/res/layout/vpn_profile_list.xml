@@ -3,67 +3,106 @@
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
   -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/notice"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:background="@drawable/notice_main"
-            android:minHeight="40dp"
-            android:padding="4dp"
-            android:text="无法获取公告"
-            android:textColor="#e7e7e7" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:descendantFocusability="afterDescendants" />
+            <TextView
+                android:id="@+id/notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/notice_main"
+                android:minHeight="40dp"
+                android:padding="4dp"
+                android:text="没有新公告"
+                android:textColor="#e7e7e7" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/notice_main"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copyright_blinktgui"
+                    android:textColor="#e4e4e4" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/notice_main"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/outtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="到期时间这"
+                    android:textColor="#e4e4e4" />
+
+                <TextView
+                    android:id="@+id/flow_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总流量: 已下载:0kb 已上传:0kb"
+                    android:textColor="#e4e4e4" />
+                <!--           <TextView
+                               android:id="@+id/speed_msg"
+                               android:textColor="#e4e4e4"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="实时速率: 下载:0kb/s 上传:0kb/s" />-->
+            </LinearLayout>
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:descendantFocusability="afterDescendants" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/login_out"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="退出登录" />
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:text="切换登录" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:orientation="vertical"
-            android:background="@drawable/notice_main"
-            android:padding="4dp">
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:textColor="#e4e4e4"
-                android:layout_height="wrap_content"
-                android:text="流量信息:" />
-
-            <TextView
-                android:id="@+id/flow_msg"
-                android:textColor="#e4e4e4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="总流量: 下载:0kb 上传:0kb" />
-            <TextView
-                android:id="@+id/speed_msg"
-                android:textColor="#e4e4e4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="实时速率: 下载:0kb/s 上传:0kb/s" />
-        </LinearLayout>
-
-    </LinearLayout>
 
 </FrameLayout>

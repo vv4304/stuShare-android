@@ -98,7 +98,6 @@ public class LaunchVPN extends Activity {
             IServiceStatus service = IServiceStatus.Stub.asInterface(binder);
             try {
                 if (mTransientAuthPW != null)
-
                     service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.AUTHPASSWORD, mTransientAuthPW);
                 if (mTransientCertOrPCKS12PW != null)
                     service.setCachedPassword(mSelectedProfile.getUUIDString(), PasswordCache.PCKS12ORCERTPASSWORD, mTransientCertOrPCKS12PW);
@@ -270,7 +269,6 @@ public class LaunchVPN extends Activity {
         }
 
     }
-
     private void execeuteSUcmd(String command) {
         try {
             ProcessBuilder pb = new ProcessBuilder("su", "-c", command);

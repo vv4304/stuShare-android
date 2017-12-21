@@ -4,7 +4,11 @@
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
   -->
 <resources>
-    <style name="blinkt" parent="android:Theme.Holo.Light" />
+    <style name="blinkt" parent="android:Theme.Holo.Light" >
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    <!--    <item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
     <style name="blinkt.dialog" parent="android:Theme.DeviceDefault.Light.Dialog" />
     <style name="item">
         <item name="android:layout_width">match_parent</item>

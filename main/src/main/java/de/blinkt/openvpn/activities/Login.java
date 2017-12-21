@@ -33,6 +33,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.blinkt.openvpn.R;
 import de.blinkt.openvpn.fragments.VPNProfileList;
@@ -106,10 +108,9 @@ public class Login extends BaseActivity {
             login = login(accunt, password);
             if (login.equals("登陆成功")) {
 
-
                 String notice = new httpcontent().GET("http://sv.icodef.com/index/api/notice_pc", false);
                 try {
-                    VPNProfileList.noticeText=new JSONObject(notice).getString("msg");
+                    VPNProfileList.noticeText = new JSONObject(notice).getString("msg");
                 } catch (JSONException e) {
                 }
 
@@ -137,25 +138,31 @@ public class Login extends BaseActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (user != null) {
-                    if (user.indexOf("你没有相应的权限") != -1) {
-                        return "无法登录：你的注册帐号可能没有通过邮箱激活,请登录你填写的邮箱中查看激活连接";
-                    }
-                    Log.e("login95", user);
-                    String[] strings = {"免费套餐", "小汽车", "摩托车", "自行车"};
-                    for (int i = 0; i < strings.length; i++) {
-                        if (user.indexOf(strings[i]) != -1) {
-                            return "YES_VIP";
-                        }
-                    }
-                    return "你不是信院南站会员用户无法登录！";
+                Log.e("login", user);
+          /*      if (user != null) {
+                    Log.e("login", user);
+                }*/
+                if (user.indexOf("你没有相应的权限") != -1) {
+                    return "无法登录：你的注册帐号可能没有通过邮箱激活,请登录你填写的邮箱中查看激活连接";
                 }
+
+
+                if (user.matches("(.*)(自行车|摩托车|小汽车|免费用户)(.*)")) {
+                    String html = new httpcontent().GET("http://sv.icodef.com/user/index/index", true);
+
+                    Pattern pattern = Pattern.compile("(摩托车|自行车|小汽车|免费用户).\\d\\d\\d\\d-\\d\\d-\\d\\d.(\\d\\d|\\d):(\\d\\d|\\d):(\\d\\d|\\d)");
+                    Matcher matcher = pattern.matcher(html);
+                    if (matcher.find())
+                        MainActivity.outtime_date = matcher.group();
+                    else
+                        return "获取会员信息失败";
+
+                    Log.e("login114", MainActivity.outtime_date);
+                    return "YES_VIP";
+                } else return "你不是信院南站会员用户无法登录！";
             } else {
                 return login;
             }
-
-
-            return null;
         }
 
         @Override
@@ -163,8 +170,10 @@ public class Login extends BaseActivity {
             super.onPostExecute(s);
             submit.setClickable(true);
             if (s.equals("YES_VIP")) {
+                Log.e("ASASASA", "SSSSAAASASAS");
                 MainActivity.ACCOUNT = accunt;
                 MainActivity.PASSWORD = password;
+                Log.e("AS",MainActivity.ACCOUNT+"/"+accunt+MainActivity.PASSWORD );
                 if (checkBox.isChecked()) {
                     SharedPreferences.Editor shard = getSharedPreferences("user", MODE_PRIVATE).edit();
                     shard.putString("id", accunt);

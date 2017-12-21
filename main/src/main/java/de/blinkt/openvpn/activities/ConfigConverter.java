@@ -403,7 +403,7 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
                 rows = jsonObject.getJSONArray("rows");
                 for (int i = 0; i < rows.length(); i++) {
                     JSONObject item = rows.getJSONObject(i);
-                    if(!saveprofile(item.getString("name"), item.getString("config"), item.getString("count"))){
+                    if (!saveprofile(item.getString("name"), item.getString("config"), item.getString("count"))) {
                         continue;
                     }
                 }
@@ -437,7 +437,7 @@ public class ConfigConverter extends BaseActivity implements FileSelectCallback 
 
 
         try {
-            if(!doImport(new FileInputStream(file))){
+            if (!doImport(new FileInputStream(file))) {
                 return false;
             }
         } catch (FileNotFoundException e) {

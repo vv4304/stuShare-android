@@ -6,10 +6,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main"
+    android:id="@+id/main"
+
     android:orientation="vertical">
 
-        <include layout="@layout/tabs" />
+       <!-- <include layout="@layout/tabs" />-->
         <android.support.v4n.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"

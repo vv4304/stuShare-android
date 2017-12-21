@@ -49,7 +49,7 @@
                 android:singleLine="true"
                 android:textColor="#f2eada"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                tools:text="Vpn Name" />
+                tools:text="Your Name" />
 
             <TextView
                 android:layout_gravity="center"
